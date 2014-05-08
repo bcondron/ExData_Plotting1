@@ -1,0 +1,12 @@
+library(sqldf)
+x<-read.csv2("household_power_consumption.txt")
+y<-sqldf("Select * from x WHERE Date = '1/2/2007' OR Date = '2/2/2007'")
+rm(x)
+k<-paste(y$Date,y$Time,sep=" ")
+j<-as.POSIXlt(k,format="%d/%m/%Y %H:%M:%S")
+rm(k)
+h<-as.numeric(as.character(y[[3]]))
+
+png(file="plot1.png")
+hist(h, main = "Global Active Power", ylab="February",xlab="Global Active Power (kilowatts)", col="red")
+dev.off()
